@@ -145,4 +145,8 @@ The following guides illustrate how to run recipes web application:
                   }
               ]
       }
- * ##### DELETE End Point (http://localhost:8080/api/recipe/2)           
+ * ##### DELETE End Point (http://localhost:8080/api/recipe/2)
+ * ### api-docs, swagger-ui
+    * http://localhost:8080/v3/api-docs/
+    * http://localhost:8080/swagger-ui/index.html
+    * /v3/api-docs(search for /v3/api-docs on explore search bar, then will get recipes-web endpoints)

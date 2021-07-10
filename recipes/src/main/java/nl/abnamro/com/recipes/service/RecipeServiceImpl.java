@@ -2,7 +2,7 @@ package nl.abnamro.com.recipes.service;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.abnamro.com.recipes.exception.RecipeNotFoundException;
-import nl.abnamro.com.recipes.model.Recipe;
+import nl.abnamro.com.recipes.model.entity.Recipe;
 import nl.abnamro.com.recipes.model.dto.RecipeDto;
 import nl.abnamro.com.recipes.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -68,7 +67,7 @@ public class RecipeServiceImpl implements RecipeService {
      */
     @Override
     public void deleteRecipe(int id) throws RecipeNotFoundException {
-        Recipe recipe = getRecipeById(id);
+        var recipe = getRecipeById(id);
         recipeRepository.delete(recipe);
     }
 

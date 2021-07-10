@@ -1,7 +1,7 @@
 package nl.abnamro.com.recipes.service;
 
 import nl.abnamro.com.recipes.exception.RecipeNotFoundException;
-import nl.abnamro.com.recipes.model.Recipe;
+import nl.abnamro.com.recipes.model.entity.Recipe;
 import nl.abnamro.com.recipes.model.dto.RecipeDto;
 import nl.abnamro.com.recipes.repository.RecipeRepository;
 import org.junit.jupiter.api.Assertions;

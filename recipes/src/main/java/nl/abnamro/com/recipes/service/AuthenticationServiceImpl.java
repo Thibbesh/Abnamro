@@ -24,6 +24,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * AuthenticationServiceImpl is have authentication logic of
+ * <p>Authorization</p>
+ * <p>Authentication</p>
+ */
 @Service
 @Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -44,9 +49,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private JwtUtils jwtUtils;
 
     /**
-     *
-     * @param loginRequest
-     * @return
+     * Signing in registered users with accessToken and user details.
+     * @param loginRequest of authorized user
+     * @return JwtResponse of token details
      */
     @Override
     public ResponseEntity<?> signIn(LoginRequest loginRequest) {
@@ -71,9 +76,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     /**
-     *
-     * @param signUpRequest
-     * @return
+     * Authorizing user inorder to access recipe endpoint
+     * @param signUpRequest of new user
+     * @return messageResponse
      */
     @Override
     public ResponseEntity<?> signUp(SignUpRequest signUpRequest) {

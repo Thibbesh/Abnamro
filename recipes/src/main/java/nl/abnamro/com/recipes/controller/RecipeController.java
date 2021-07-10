@@ -1,6 +1,6 @@
 package nl.abnamro.com.recipes.controller;
 
-import nl.abnamro.com.recipes.model.Recipe;
+import nl.abnamro.com.recipes.model.entity.Recipe;
 import nl.abnamro.com.recipes.model.dto.RecipeDto;
 import nl.abnamro.com.recipes.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotNull;
  * <p>Get</p> to get all available recipes
  *
  */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(path = "/api/recipe")
 public class RecipeController {
@@ -36,14 +38,14 @@ public class RecipeController {
 
     /**
      * getRecipeById endpoint is to get the recipe by id.
-     * if recipe not found in the data base it will throw RecipeNotFoundException
+     * logged in user must have Role of ADMIN or USER to perform
      *
      * @param id of recipe
      * @return RecipeDto
      *
      */
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<RecipeDto> getRecipeById(@PathVariable("id") @NotNull final int id) {
         return new ResponseEntity<>(RecipeDto.from(recipeService.getRecipeById(id)), HttpStatus.OK);
     }
@@ -55,7 +57,7 @@ public class RecipeController {
      * @return list<RecipeDto>
      */
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<?> getAllRecipe() {
         return recipeService.getAllRecipes();
     }
@@ -68,8 +70,8 @@ public class RecipeController {
      */
     @PostMapping
     @ResponseBody
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> saveRecipe(@RequestBody RecipeDto recipeDto) {
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<String> saveRecipe(@Valid @RequestBody RecipeDto recipeDto) {
         recipeService.saveRecipe(Recipe.from(recipeDto));
         return ResponseEntity.status(HttpStatus.CREATED).body("Recipe saved successfully..");
     }
@@ -82,8 +84,8 @@ public class RecipeController {
      * @return recipeDto
      */
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<RecipeDto> update(@RequestBody RecipeDto recipeDto, @PathVariable("id") int id) {
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<RecipeDto> update(@Valid @RequestBody RecipeDto recipeDto, @PathVariable("id") int id) {
         return new ResponseEntity<>(RecipeDto.from(recipeService.updateRecipe(id, Recipe.from(recipeDto))), HttpStatus.OK);
     }
 
@@ -94,7 +96,7 @@ public class RecipeController {
      *
      */
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<String> deleteRecipeById(@PathVariable("id") int id) {
         recipeService.deleteRecipe(id);
         return ResponseEntity.status(HttpStatus.OK).body("Recipe deleted successfully..");

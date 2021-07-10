@@ -18,18 +18,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-//TODO: Check why prePostEnabled
+/**
+ * WebSecurityConfig is a security configuration
+ * Have used spring-security
+ * Jwt token
+ * Role based access
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String[] AUTH_LIST = {
-                                                "/v3/api-docs",
-                                                "/v2/api-docs",
-                                                "/swagger-ui.html",
-                                                "/swagger-ui-custom.html"
-    };
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -42,22 +40,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthTokenFilter();
     }
 
+    /**
+     * Configure AuthenticationMangerBuilder
+     * @param authenticationManagerBuilder
+     * @throws Exception
+     */
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Get authenticationManagerBean from WebSecurityConfigurerAdapter
+     * @return authenticationManagerBean
+     * @throws Exception
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Encoding user password
+     * @return BCryptPasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * configure endpoints and enabled authentication
+     * @param http of HttpSecurity
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -72,11 +89,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    /*@Override
+    /**
+     * Whitelisting swagger,api-docs urls without authentication.
+     * @param web of WebSecurity
+     */
+    @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/v3/api-docs/**",
                                                 "/v2/api-docs/**",
                                                 "/swagger-ui/**",
                                                 "/swagger-ui-custom.html/**");
-    }*/
+    }
 }

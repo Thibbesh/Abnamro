@@ -15,22 +15,26 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * AuthEntryPointJwt is spring component and
+ * Its entry point to authentication process
+ */
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
     /**
-     *
-     * @param request
-     * @param response
-     * @param authException
+     * commence will initiate authentication process.
+     * @param request of HttpServletRequest
+     * @param response of HttpServletResponse
+     * @param authException of AuthenticationException
      * @throws IOException
      * @throws ServletException
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
+            throws IOException{
         logger.error("Unauthorized error: {}", authException.getMessage());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

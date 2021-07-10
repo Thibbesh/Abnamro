@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * JwtUtils its a spring component inorder to
+ * <p>generateJwtToken</p>
+ * <p>getUserNameFromJwtToken</p>
+ * <p>validateJwtToken</p>
+ */
 @Component
 public class JwtUtils {
 
@@ -22,13 +28,13 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     /**
-     *
-     * @param authentication
-     * @return
+     * generateJwtToken is generate access token of JWT.
+     * @param authentication of Authentication Class
+     * @return String of JwtToken
      */
     public String generateJwtToken(Authentication authentication) {
 
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        var userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
@@ -39,9 +45,9 @@ public class JwtUtils {
     }
 
     /**
-     *
-     * @param token
-     * @return
+     * Get username from access token and validate with jwtSecret.
+     * @param token accessToken
+     * @return user name of logged in user
      */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
@@ -52,9 +58,9 @@ public class JwtUtils {
     }
 
     /**
-     *
-     * @param authToken
-     * @return
+     * validate access token with jwtSecret
+     * @param authToken accessToken
+     * @return true or false
      */
     public boolean validateJwtToken(String authToken) {
         try {

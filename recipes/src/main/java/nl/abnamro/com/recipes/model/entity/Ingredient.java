@@ -1,4 +1,4 @@
-package nl.abnamro.com.recipes.model;
+package nl.abnamro.com.recipes.model.entity;
 
 import lombok.Data;
 import nl.abnamro.com.recipes.model.dto.IngredientDto;

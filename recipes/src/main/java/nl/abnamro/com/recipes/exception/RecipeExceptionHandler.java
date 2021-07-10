@@ -1,13 +1,16 @@
-package nl.abnamro.com.recipes.controller;
+package nl.abnamro.com.recipes.exception;
 
 import nl.abnamro.com.recipes.exception.RecipeNotFoundException;
 import nl.abnamro.com.recipes.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
  * RestControllerAdvice is global exception handler for recipe web services.
@@ -35,14 +38,17 @@ public class RecipeExceptionHandler {
      * @param exception of badRequest
      * @return errorResponse
      */
-    /*@ExceptionHandler
+    @ExceptionHandler({
+            MissingServletRequestParameterException.class,
+            MethodArgumentTypeMismatchException.class,
+            HttpMessageNotReadableException.class
+    })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ResponseEntity<ErrorResponse> badRequestHandler(Exception exception){
         ErrorResponse response =
-                new ErrorResponse("Error_Code-0008",
-                        "Input is invalid and " + exception.getMessage());
+                new ErrorResponse("Error_Code-0008", exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }*/
+    }
 
 }

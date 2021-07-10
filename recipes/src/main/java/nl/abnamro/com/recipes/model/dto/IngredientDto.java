@@ -1,7 +1,7 @@
 package nl.abnamro.com.recipes.model.dto;
 
 import lombok.Data;
-import nl.abnamro.com.recipes.model.Ingredient;
+import nl.abnamro.com.recipes.model.entity.Ingredient;
 
 @Data
 public class IngredientDto {

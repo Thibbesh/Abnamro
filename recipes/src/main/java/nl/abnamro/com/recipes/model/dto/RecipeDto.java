@@ -1,7 +1,7 @@
 package nl.abnamro.com.recipes.model.dto;
 
 import lombok.Data;
-import nl.abnamro.com.recipes.model.Recipe;
+import nl.abnamro.com.recipes.model.entity.Recipe;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

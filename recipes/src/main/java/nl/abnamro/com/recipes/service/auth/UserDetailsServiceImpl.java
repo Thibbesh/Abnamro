@@ -16,16 +16,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     /**
-     *
-     * @param username
-     * @return
+     * loadUserByUsername to get UserDetails from database.
+     * @param username of logging user
+     * @return UserDetails
      * @throws UsernameNotFoundException
      */
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+        var user = userRepository.findByUsername(username)
                                     .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
         return UserDetailsImpl.build(user);

@@ -1,13 +1,10 @@
 package nl.abnamro.com.recipes.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.abnamro.com.recipes.model.Recipe;
+import nl.abnamro.com.recipes.model.entity.Recipe;
 import nl.abnamro.com.recipes.model.dto.IngredientDto;
 import nl.abnamro.com.recipes.model.dto.RecipeDto;
-import nl.abnamro.com.recipes.security.WebSecurityConfig;
-import nl.abnamro.com.recipes.security.jwt.AuthEntryPointJwt;
 import nl.abnamro.com.recipes.service.RecipeService;
-import nl.abnamro.com.recipes.service.auth.UserDetailsServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +23,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;

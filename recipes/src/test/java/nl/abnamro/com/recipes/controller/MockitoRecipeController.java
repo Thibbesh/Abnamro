@@ -1,7 +1,7 @@
 package nl.abnamro.com.recipes.controller;
 
-import nl.abnamro.com.recipes.model.Ingredient;
-import nl.abnamro.com.recipes.model.Recipe;
+import nl.abnamro.com.recipes.model.entity.Ingredient;
+import nl.abnamro.com.recipes.model.entity.Recipe;
 import nl.abnamro.com.recipes.model.dto.IngredientDto;
 import nl.abnamro.com.recipes.model.dto.RecipeDto;
 import nl.abnamro.com.recipes.service.RecipeService;

@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -28,10 +27,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
     /**
-     *
-     * @param httpServletRequest
-     * @param httpServletResponse
-     * @param filterChain
+     * doFilterInternal will filter the user details
+     * @param httpServletRequest of HttpServletRequest
+     * @param httpServletResponse of HttpServletResponse
+     * @param filterChain of FilterChain
      * @throws ServletException
      * @throws IOException
      */
@@ -56,9 +55,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    //TODO: Should not return null
+    /**
+     * Extract accessToken from BearerToken.
+     * @param request of HttpServletRequest
+     * @return Bearer token
+     */
     private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
+        var headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7, headerAuth.length());

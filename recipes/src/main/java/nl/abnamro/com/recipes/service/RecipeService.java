@@ -1,10 +1,8 @@
 package nl.abnamro.com.recipes.service;
 
 import nl.abnamro.com.recipes.exception.RecipeNotFoundException;
-import nl.abnamro.com.recipes.model.Recipe;
+import nl.abnamro.com.recipes.model.entity.Recipe;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface RecipeService {
 

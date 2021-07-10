@@ -28,7 +28,7 @@
 ### Bonus
 
 1. REST application should be secured by implementing authentication process (please provide credentials).
-    * All endpoints request authenticated
+    * All endpoints are authenticated and Sign up and sign in
     * [SignUp](http://localhost:8080/api/authentication/signup)
     * [signin](http://localhost:8080/api/authentication/signin)
     * use accessToken to access recipe end points.

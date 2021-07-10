@@ -2,7 +2,7 @@
 
 ## Architectural Choice
 
-### Application must be production ready.
+### Requirements.
 1. Application must be production ready.
     * I have chosen Springboot.
 2. REST application must be implemented using Java.

@@ -146,6 +146,11 @@ The following guides illustrate how to run recipes web application:
               ]
       }
  * ##### DELETE End Point (http://localhost:8080/api/recipe/2)
+
+* ### Postman API Test Collection
+    * under /resources folder
+    * Recipes Api.postman_collection.json
+    
  * ### api-docs, swagger-ui
     * http://localhost:8080/v3/api-docs/
     * http://localhost:8080/swagger-ui/index.html

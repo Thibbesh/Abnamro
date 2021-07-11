@@ -1,6 +1,7 @@
 package nl.abnamro.com.recipes.service;
 
 import lombok.extern.slf4j.Slf4j;
+import nl.abnamro.com.recipes.exception.AuthenticationException;
 import nl.abnamro.com.recipes.model.auth.ERole;
 import nl.abnamro.com.recipes.model.auth.Role;
 import nl.abnamro.com.recipes.model.auth.User;
@@ -104,24 +105,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error_CODE-0003: Role is not found."));
+                    .orElseThrow(() -> new AuthenticationException("Error_CODE-0003: Role is not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                                       .orElseThrow(() -> new RuntimeException("Error_CODE-0004: Role Admin is not found."));
+                                                       .orElseThrow(() -> new AuthenticationException("Error_CODE-0004: Role Admin is not found."));
                         roles.add(adminRole);
                         break;
                     case "mod":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                                     .orElseThrow(() -> new RuntimeException("Error_CODE-0005: Role mod is not found."));
+                                                     .orElseThrow(() -> new AuthenticationException("Error_CODE-0005: Role mod is not found."));
                         roles.add(modRole);
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                                      .orElseThrow(() -> new RuntimeException("Error_CODE-0006: Role User is not found."));
+                                                      .orElseThrow(() -> new AuthenticationException("Error_CODE-0006: Role User is not found."));
                         roles.add(userRole);
                 }
             });

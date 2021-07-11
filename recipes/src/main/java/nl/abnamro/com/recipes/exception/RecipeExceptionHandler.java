@@ -1,10 +1,11 @@
 package nl.abnamro.com.recipes.exception;
 
-import nl.abnamro.com.recipes.exception.RecipeNotFoundException;
 import nl.abnamro.com.recipes.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +36,7 @@ public class RecipeExceptionHandler {
 
     /**
      * any exception related to wrong input type or empty input type can take care of.
-     * @param exception of badRequest
+     * @param exception for badRequest
      * @return errorResponse
      */
     @ExceptionHandler({
@@ -49,6 +50,34 @@ public class RecipeExceptionHandler {
         ErrorResponse response =
                 new ErrorResponse("Error_Code-0008", exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * all the exception which are method not allowed.
+     * @param exception for methodNotAllowed
+     * @return errorResponse
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> methodNotAllowed(Exception exception){
+        ErrorResponse response =
+                new ErrorResponse("Error_Code-0009", exception.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    /**
+     * Access denied users which is dont have access to endpoints
+     * @param exception for access denied.
+     * @return errorResponse
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> accessIsDenied(Exception exception){
+        ErrorResponse response =
+                new ErrorResponse("Error_Code-0010", exception.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
 }
